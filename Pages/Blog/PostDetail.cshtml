@@ -1,0 +1,86 @@
+﻿@page "{slug}"
+@using SWMNU_NET.Helpers;
+@model SWMNU_NET.Pages.Blog.PostDetailModel
+@{
+    ViewData["Title"] = Model.Post.SeoTitle;
+    ViewData["Author"] = Model.Post.Author;
+}
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <a href="/" title="Go to Home Page"><i class="fas fa-arrow-left"></i> Back Home</a>
+        </div>
+        <div class="col-6 text-right">
+            <a href="#comment"><i class="fas fa-comment-alt"></i> Go to comments</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 blog-post">
+            @if (!string.IsNullOrWhiteSpace(Model.Post.FeaturedImage))
+            {
+                <div class="">
+                    <img class="img-rounded post-image margin-top-30" src="@Html.GetResizedImageUrl(Model.Post.FeaturedImage, 922, 150, FitType.Crop)" alt=""
+                         srcset="@Html.GetResizedImageUrl(Model.Post.FeaturedImage, 320, FitType.Max) 320w,
+                            @Html.GetResizedImageUrl(Model.Post.FeaturedImage, 480, FitType.Max) 480w,
+                            @Html.GetResizedImageUrl(Model.Post.FeaturedImage, 768, 250, FitType.Crop) 768w,
+                            @Html.GetResizedImageUrl(Model.Post.FeaturedImage, 922, 350, FitType.Crop) 992w,
+                            @Html.GetResizedImageUrl(Model.Post.FeaturedImage, 1200, 450, FitType.Crop) 1200w"
+                         sizes="(max-width: 320px) 100vw,
+                            (max-width: 480px) 100vw,
+                            (max-width: 768px) 75vw,
+                            (max-width: 992px) 66vw,
+                            (max-width: 1200px) 66vw" />
+                </div>
+            }
+
+            <!-- Post Headline Start -->
+            <div class="post-title">
+                <h1>@Model.Post.Title</h1>
+            </div>
+            <!-- Post Headline End -->
+            <!-- Post Detail Start -->
+            <div class="post-info">
+                <span>
+                    @(Model.Post.Published.HasValue ? $"{Model.Post.Published.Value:D} / by " : "By ") <a href="/author/@Uri.EscapeDataString(Model.Post.Author.Slug)" target="_blank">@Model.Post.Author.FirstName @Model.Post.Author.LastName</a>
+                    @if (Model.Post.Categories.Any())
+                    {
+                        @:in
+                    }
+                    @foreach (var category in Model.Post.Categories)
+                    {
+                        <a href="/category/@Uri.EscapeDataString(category.Slug)">@category.Name</a>
+                    }
+                </span>
+            </div>
+            <!-- Post Detail End -->
+
+            @Html.Raw(Model.Post.Body)
+
+            <!-- Post Author Bio Box Start -->
+            <div class="about-author mt-5 mb-5">
+                <div class="p-3">
+                    @if (!string.IsNullOrWhiteSpace(Model.Post.Author.Bio))
+                    {
+                        <p>@Model.Post.Author.Bio</p>
+                    }
+                    else
+                    {
+                        <p>&nbsp;</p>
+                    }
+                </div>
+            </div>
+            <!-- Post Author Bio Box End -->
+            <!-- Post Comment (Disqus) Start -->
+            <div id="comment" class="comment">
+                <h3>Add a comment</h3>
+
+                <!-- Disqus Code Start -->
+                @* Embed your own Discus code snippet here *@
+                <!-- Disqus Code End -->
+
+            </div>
+            <!-- Post Comment (Disqus) End -->
+
+        </div>
+    </div>
+</div>

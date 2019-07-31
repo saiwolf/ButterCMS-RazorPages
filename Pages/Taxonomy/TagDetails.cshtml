@@ -1,0 +1,41 @@
+﻿@page
+@model SWMNU_NET.Pages.Taxonomy.TagDetailsModel
+@{
+    ViewData["Title"] = $"Posts in the {Model.Tag.Tag.Name} tag";
+}
+
+<div>
+    <a href="/" title="Go to Home Page"><i class="fas fa-arrow-left"></i> Back Home</a>
+</div>
+
+<h2>Posts in @Model.Tag.Tag.Name</h2>
+
+@Html.DisplayFor(m => m.Blogs.Posts)
+
+@if (Model.Blogs.TotalPages > 1)
+{
+    if (Model.Blogs.PreviousPage != null)
+    {
+        <a href="/tag/@Model.Tag.Tag.Slug/p/@Model.Blogs.PreviousPage">Prev</a>
+    }
+
+    for (int i = 1; i <= Model.Blogs.TotalPages; i++)
+    {
+        if (i == Model.Blogs.CurrentPage)
+        {
+
+            <span class="page-number active">@i</span>
+        }
+        else
+        {
+            <span class="page-number"><a href="/tag/@Model.Tag.Tag.Slug/p/@i">@i</a></span>
+        }
+
+    }
+
+    if (ViewBag.NextPage != null)
+    {
+        <a href="/tag/@Model.Tag.Tag.Slug/p/@Model.Blogs.NextPage">Next</a>
+    }
+}
+

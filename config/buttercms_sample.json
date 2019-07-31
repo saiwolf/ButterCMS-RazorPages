@@ -1,0 +1,10 @@
+{
+  "ButterCMSOptions": {
+    "ApiKey": "Your API Key Here",
+    "BlogPostsPerPage": 10,
+    "PrimaryAuthorSlug": "AuthorFirstName-AuthorLastName"
+  },
+  "UrlOptions": {
+    "BaseUrl": "/"
+  }
+}

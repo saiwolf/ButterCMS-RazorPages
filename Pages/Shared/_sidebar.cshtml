@@ -1,0 +1,32 @@
+﻿@using SWMNU_NET.Services;
+@inject TaxonomyService  TaxonomyService
+@{ 
+    var categories = TaxonomyService.ListAllCategories();
+    var tags = TaxonomyService.ListAllTags();
+}
+<aside class="col-sm-3 ml-sm-auto blog-sidebar">
+    <div class="sidebar-module sidebar-module-inset">
+        <h4>Categories (@categories.Count)</h4>
+        <ol class="list-unstyled">
+            @foreach(var cat in categories.Categories)
+            {
+                <li>
+                    <a href="~/category/@cat.Slug">
+                        @cat.Name
+                    </a>
+                </li>
+            }
+        </ol>
+    </div>
+    <div class="sidebar-module">
+        <h4>Tags (@tags.Count)</h4>
+        <ol class="list-unstyled">
+            @foreach(var tag in tags.Tags)
+            {
+                <li>
+                    <a href="~/tag/@tag.Slug">@tag.Name</a>
+                </li>
+            }
+        </ol>
+    </div>
+</aside><!-- /.blog-sidebar -->

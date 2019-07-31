@@ -1,0 +1,34 @@
+﻿@page
+@model SWMNU_NET.Pages.Blog.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+ 
+@Html.DisplayFor(m => m.BlogListViewModel.Posts)
+ 
+
+@if (Model.BlogListViewModel.TotalPages > 1)
+{
+    if (Model.BlogListViewModel.PreviousPage != null)
+    {
+        <a href="/p/@Model.BlogListViewModel.PreviousPage">Prev</a>
+    }
+
+    for (int i = 1; i <= Model.BlogListViewModel.TotalPages; i++)
+    {
+        if (i == Model.BlogListViewModel.CurrentPage)
+        {
+            <span class="active">@i</span>
+        }
+        else
+        {
+            <span><a href="/p/@i">@i</a></span>
+        }
+    }
+
+    if (ViewBag.NextPage != null)
+    {
+        <a href="/p/@Model.BlogListViewModel.NextPage">Next</a>
+    }
+}
+
